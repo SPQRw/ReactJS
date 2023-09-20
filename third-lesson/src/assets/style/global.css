@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #0f7e86;
+  color: #95991f;
+}
+.btn {
+  padding: 6px 20px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #212baf;
+  color: #fff;
+}
+.btn:hover {
+  background-color: #95991f;
+}
