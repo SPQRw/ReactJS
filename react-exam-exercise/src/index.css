@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #503a3a;
+  color: #d6dbe4;
+}
+button {
+  background-color: #e08ee0;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 4px 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+  transition: background-color 0.4s ease-in-out;
+}
+
+button:hover {
+  background-color: #b861b8;
+}

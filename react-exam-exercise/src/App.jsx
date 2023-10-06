@@ -1,27 +1,27 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
-import RegistrationForm from "./components/RegistrationForm";
-import LoginForm from "./components/LoginForm";
-import UserProfile from "./components/UserProfile";
-
+import RecipeItem from "./recipe-item/RecipeItem";
 const App = () => {
-  const currentUser = useSelector((state) => state.currentUser);
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/">
-          {currentUser ? <UserProfile /> : <LoginForm />}
-        </Route>
-        <Route path="/register">
-          <RegistrationForm />
-        </Route>
-        <Route path="/login">
-          <LoginForm />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <RecipeItem
+        recipe={{
+          id: 1,
+          name: "Lazanya",
+        }}
+      />
+      <RecipeItem
+        recipe={{
+          id: 2,
+          name: "Pasta",
+        }}
+      />
+      <RecipeItem
+        recipe={{
+          id: 3,
+          name: "Pizza",
+        }}
+      />
+    </>
   );
 };
 
