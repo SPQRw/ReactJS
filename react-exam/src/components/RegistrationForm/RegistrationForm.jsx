@@ -1,11 +1,19 @@
 // RegistrationForm.js
 import React, { useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { registration_user } from "../../redux/action";
+import styles from "./Registration.module.css";
 
-const RegistrationForm = ({ registration_user }) => {
+const RegistrationForm = ({ registration_user, users, setUsers }) => {
   let registration = useSelector((store) => store.registration);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -13,7 +21,7 @@ const RegistrationForm = ({ registration_user }) => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-
+  let per;
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = {
@@ -22,12 +30,23 @@ const RegistrationForm = ({ registration_user }) => {
       email,
       password,
     };
-
-    // dispatch({ type: "REGISTER_USER", payload: user });
-    // console.log(user);
+    console.log(user);
+    per = user;
+  };
+  const nav = useNavigate();
+  const Check = (email) => {
+    // console.log(email);
+    const isExist = users.some((r) => r.email === email);
+    if (isExist) {
+      console.log("YEs");
+      nav("/Login");
+    } else {
+      console.log(isExist);
+      nav("/Login");
+    }
   };
   return (
-    <div>
+    <div className={styles.form}>
       <h2>Registration</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -42,6 +61,7 @@ const RegistrationForm = ({ registration_user }) => {
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
+        admin3@example.com
         <input
           type="email"
           placeholder="Email"
@@ -53,20 +73,22 @@ const RegistrationForm = ({ registration_user }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
+        />{" "}
+        <br />
         <button
           onClick={() => {
-            let userAfter = { setFirstName };
-            registration_user(userAfter);
+            Check(email);
+            let userAfter = { firstName, lastName, email, password };
+            registration_user(userAfter, setUsers);
           }}
         >
-          Поиск
+          Регистрация
         </button>
       </form>
     </div>
   );
 };
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
   return {};
 };
 
