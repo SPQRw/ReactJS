@@ -61,7 +61,6 @@ const RegistrationForm = ({ registration_user, users, setUsers }) => {
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
-        admin3@example.com
         <input
           type="email"
           placeholder="Email"
