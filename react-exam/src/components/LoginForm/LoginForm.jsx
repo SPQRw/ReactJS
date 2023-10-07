@@ -12,7 +12,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { login_user } from "../../redux/action";
 // import styles from "./Registration/Registration.module.css";
 
-const LoginForm = ({ login_user, users, setUsers }) => {
+const LoginForm = ({ login_user, users, setUsers, books, setBooks }) => {
   let login = useSelector((store) => store.login);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -37,11 +37,15 @@ const LoginForm = ({ login_user, users, setUsers }) => {
     const isExist = users.some((r) => r.email === email);
     if (isExist) {
       const filteredUsers = users.filter((user) => user.email === email);
+      const filteredBooks = books.filter((book) => book.isEdit == true);
+
       // console.log(filteredUsers);
-      nav(`/User/${filteredUsers[0].id}`, { state: filteredUsers[0] });
+      nav(`/User/${filteredUsers[0].id}`, {
+        state: [filteredUsers[0], filteredBooks],
+      });
     } else {
       console.log(isExist);
-      nav("/Login");
+      nav("/Registration");
     }
   };
   return (
