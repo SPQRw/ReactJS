@@ -6,6 +6,7 @@ export const books = [
     avtor: "Лермонтов",
     date: "20.07.2009",
     status: "нет",
+    user: "admin@example.com",
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const books = [
     avtor: "Пушкин",
     date: "17.02.2012",
     status: "нет",
+    user: "admin2@example.com",
   },
   {
     id: 3,

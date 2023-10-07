@@ -21,27 +21,27 @@ const RegistrationForm = ({ registration_user, users, setUsers }) => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  let per;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = {
+    let user = {
       firstName,
       lastName,
       email,
       password,
     };
-    console.log(user);
-    per = user;
+    // dispatch({ type: "REGISTRATION_USER", payload: user });
   };
   const nav = useNavigate();
+  let per;
   const Check = (email) => {
-    // console.log(email);
     const isExist = users.some((r) => r.email === email);
-    if (isExist) {
+    per = isExist;
+    if (per) {
       console.log("YEs");
       nav("/Login");
     } else {
-      console.log(isExist);
+      console.log(per);
       nav("/Login");
     }
   };
@@ -78,7 +78,7 @@ const RegistrationForm = ({ registration_user, users, setUsers }) => {
           onClick={() => {
             Check(email);
             let userAfter = { firstName, lastName, email, password };
-            registration_user(userAfter, setUsers);
+            registration_user(userAfter, setUsers, per);
           }}
         >
           Регистрация
@@ -94,5 +94,4 @@ const mapStateToProps = () => {
 const mapDispatchToProps = {
   registration_user,
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);

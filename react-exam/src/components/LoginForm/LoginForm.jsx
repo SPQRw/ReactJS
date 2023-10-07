@@ -14,6 +14,8 @@ import { login_user } from "../../redux/action";
 
 const LoginForm = ({ login_user, users, setUsers }) => {
   let login = useSelector((store) => store.login);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,10 +24,12 @@ const LoginForm = ({ login_user, users, setUsers }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = {
+      firstName,
+      lastName,
       email,
       password,
     };
-    console.log(user);
+    // dispatch({ type: "LOGIN_USER", payload: user });
   };
   const nav = useNavigate();
   const Check = (email, id) => {
@@ -33,7 +37,7 @@ const LoginForm = ({ login_user, users, setUsers }) => {
     const isExist = users.some((r) => r.email === email);
     if (isExist) {
       const filteredUsers = users.filter((user) => user.email === email);
-      console.log(filteredUsers);
+      // console.log(filteredUsers);
       nav(`/User/${filteredUsers[0].id}`, { state: filteredUsers[0] });
     } else {
       console.log(isExist);
@@ -44,6 +48,18 @@ const LoginForm = ({ login_user, users, setUsers }) => {
     <div>
       <h2>Логин</h2>
       <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
         <input
           type="email"
           placeholder="Email"
@@ -58,9 +74,10 @@ const LoginForm = ({ login_user, users, setUsers }) => {
         />{" "}
         <br />
         <button
+          // type="submit"
           onClick={() => {
             Check(email);
-            let userAfter = { email };
+            let userAfter = { email, password };
             login_user(userAfter);
           }}
         >
