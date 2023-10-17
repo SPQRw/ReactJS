@@ -12,8 +12,10 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import { login_user } from "../../redux/action";
 // import styles from "./Registration/Registration.module.css";
 
-const LoginForm = ({ login_user, users, setUsers }) => {
+const LoginForm = ({ login_user, users, setUsers, books, setBooks }) => {
   let login = useSelector((store) => store.login);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,10 +24,12 @@ const LoginForm = ({ login_user, users, setUsers }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = {
+      firstName,
+      lastName,
       email,
       password,
     };
-    console.log(user);
+    // dispatch({ type: "LOGIN_USER", payload: user });
   };
   const nav = useNavigate();
   const Check = (email, id) => {
@@ -33,17 +37,33 @@ const LoginForm = ({ login_user, users, setUsers }) => {
     const isExist = users.some((r) => r.email === email);
     if (isExist) {
       const filteredUsers = users.filter((user) => user.email === email);
-      console.log(filteredUsers);
-      nav(`/User/${filteredUsers[0].id}`, { state: filteredUsers[0] });
+      const filteredBooks = books.filter((book) => book.isEdit == true);
+
+      // console.log(filteredUsers);
+      nav(`/User/${filteredUsers[0].id}`, {
+        state: [filteredUsers[0], filteredBooks],
+      });
     } else {
       console.log(isExist);
-      nav("/Login");
+      nav("/Registration");
     }
   };
   return (
     <div>
       <h2>Логин</h2>
       <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
         <input
           type="email"
           placeholder="Email"
@@ -58,9 +78,10 @@ const LoginForm = ({ login_user, users, setUsers }) => {
         />{" "}
         <br />
         <button
+          // type="submit"
           onClick={() => {
             Check(email);
-            let userAfter = { email };
+            let userAfter = { email, password };
             login_user(userAfter);
           }}
         >

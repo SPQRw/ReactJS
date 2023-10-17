@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 const RegistrationReducer = (state = [], action) => {
   switch (action.type) {
     case "REGISTRATION_USER":
-      console.log(action.mass);
+      console.log(action.per);
+      // return (action.mass = state.push(
       action.mass((prev) => [
         ...prev,
         {
@@ -13,6 +14,8 @@ const RegistrationReducer = (state = [], action) => {
           password: action.registration.password,
         },
       ]);
+      console.log(action.mass);
+    // ));
 
     default:
       return state;
